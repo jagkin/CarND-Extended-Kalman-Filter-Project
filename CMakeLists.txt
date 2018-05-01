@@ -1,18 +1,13 @@
-project(ExtendedKF_Kalman_Filter)
+project(ExtendedKF)
 
 cmake_minimum_required (VERSION 3.5)
 
 add_definitions(-std=c++11)
 
-#set(CXX_FLAGS "-Wall")
-#set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
+set(CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
-set(sources ./FusionEKF.cpp ./kalman_filter.cpp ./main.cpp ./tools.cpp ./tools.h ./FusionEKF.h ./kalman_filter.h)
-#set(sources 
-#    ./main.cpp 
-#    ./tools.cpp 
-#    ./FusionEKF.cpp 
-#    ./kalman_filter.cpp)
+set(sources src/main.cpp src/tools.cpp src/FusionEKF.cpp src/kalman_filter.cpp src/tools.h src/FusionEKF.h src/kalman_filter.h)
 
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") 
@@ -27,4 +22,5 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 
 add_executable(ExtendedKF ${sources})
+
 target_link_libraries(ExtendedKF z ssl uv uWS)
