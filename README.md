@@ -1,7 +1,9 @@
-# Extended Kalman Filter Project Starter Code
+# Extended Kalman Filter Project
 Self-Driving Car Engineer Nanodegree Program
 
-In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
+This is my submission for Term2 Project 1 of Udacity's Self Driving Car Nanodegree.
+
+In this project I utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
 
@@ -17,12 +19,7 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 
 Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
 
-Note that the programs that need to be written to accomplish the project are src/FusionEKF.cpp, src/FusionEKF.h, kalman_filter.cpp, kalman_filter.h, tools.cpp, and tools.h
-
-The program main.cpp has already been filled out, but feel free to modify it.
-
 Here is the main protcol that main.cpp uses for uWebSocketIO in communicating with the simulator.
-
 
 INPUT: values provided by the simulator to the c++ program
 
@@ -61,69 +58,55 @@ OUTPUT: values provided by the c++ program to the simulator
    * On windows, you may need to run: `cmake .. -G "Unix Makefiles" && make`
 4. Run it: `./ExtendedKF `
 
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
 ## Code Style
 
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
-## Generating Additional Data
-
-This is optional!
-
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
+I have tried to stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
 
 ## Project Instructions and Rubric
 
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
+Here I address the project Rubric points.
 
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project resources page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/382ebfd6-1d55-4487-84a5-b6a5a4ba1e47)
-for instructions and the project rubric.
+Compiling:
+Code can be compiled using cmake and make as per instructions in the above section "Basic Build Instructions".
 
-## Hints and Tips!
+Accuracy:
+Here are the RMSE values observed for Dataset 1.
+0.0973178	0.0854597	0.451267	0.439935
+these are below the values specified in the Rubric (0.11, 0.11, 0.52, 0.52).
 
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-* Students have reported rapid expansion of log files when using the term 2 simulator.  This appears to be associated with not being connected to uWebSockets.  If this does occur,  please make sure you are conneted to uWebSockets. The following workaround may also be effective at preventing large log files.
+Follows the Correct Algorithm:
+The code follows the algorithm discussed in the class lessons.
 
-    + create an empty log file
-    + remove write permissions so that the simulator can't write to log
- * Please note that the ```Eigen``` library does not initialize ```VectorXd``` or ```MatrixXd``` objects with zeros upon creation.
+Code Efficiency:
+Code has minimal changes and computations necessary to perform the prediction and update using Kalman filter.
+There are no unnecessary computations however code is not optimized for performance either.
 
-## Call for IDE Profiles Pull Requests
+Additional information:
+I have added the following pre-processor macros to control the code flow.
 
-Help your fellow students!
+./src/kalman_filter.cpp:52:#define DISABLE_RADAR 0
+This can be used to disable the accounting of RADAR measurements to see how system performs with LASER data alone.
 
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to ensure
-that students don't feel pressured to use one IDE or another.
+./src/kalman_filter.cpp:32:#define DISABLE_LASER 0
+This can be used to disable the accounting of LASER measurements to see how system performs with RADAR data alone.
 
-However! We'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
 
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
+Here is the table of RMSE values observed with different combinations.
 
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
+| Sensor        | Dataset1 RMSE           | Dataset2 RMSE           |
+| ------------- |:-----------------------:| -----------------------:|
+| LASER         | 0.147	0.115	0.638	0.534 | 0.116	0.128	0.587	0.699 |
+| RADAR         | 0.230	0.346	0.583	0.804 | 0.274	0.387	0.722	0.926 |
+| LASAR+RADAR   | 0.097	0.085	0.451	0.439 | 0.072	0.096	0.414	0.527 |
 
-Regardless of the IDE used, every submitted project must
-still be compilable with cmake and make.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
+./src/tools.h:11:#define VERBOSE_PRINTS 1
+This can be used to enable/disable the verbose prints.
+Here is a sample output on the console when prints are enabled.
+P = 
+0.00706985 0.00226997  0.0184169 0.00695398
+0.00226997 0.00511771 0.00826626  0.0114158
+ 0.0184169 0.00826626   0.120551  0.0371732
+0.00695398  0.0114158  0.0371732  0.0888411
+Estimation:   -7.23246	10.8959	5.19534	0.0613838	
+Ground truth: -7.23983	10.9063	5.19994	0.00179692	
+RMSE:         0.0973178	0.0854597	0.451267	0.439935
