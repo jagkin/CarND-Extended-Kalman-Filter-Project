@@ -92,10 +92,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       cout << "Using RADAR" << endl;
       float ro = measurement_pack.raw_measurements_[0];
       float theta = measurement_pack.raw_measurements_[1];
-      float ro_dot = measurement_pack.raw_measurements_[2];
+      // Not sure if vx, vy can be derived using ro_dot. Ignoring it for now.
+      //float ro_dot = measurement_pack.raw_measurements_[2];
       float px = ro * sin(theta);
       float py = ro * cos(theta);
-      // Not sure if vx, vy can be derived using ro_dot. Ignoring it for now.
       ekf_.x_ << px, py, 0, 0;
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
