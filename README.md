@@ -62,32 +62,41 @@ OUTPUT: values provided by the c++ program to the simulator
 
 I have tried to stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
 
-## Project Instructions and Rubric
+## Project Rubric Points
 
 Here I address the project Rubric points.
 
-Compiling:
+1. Compiling:
+
 Code can be compiled using cmake and make as per instructions in the above section "Basic Build Instructions".
 
-Accuracy:
-Here are the RMSE values observed for Dataset 1.
-0.0973178	0.0854597	0.451267	0.439935
-these are below the values specified in the Rubric (0.11, 0.11, 0.52, 0.52).
+2. Accuracy:
 
-Follows the Correct Algorithm:
+Here are the RMSE values observed for Dataset 1.
+
+(0.0973178	0.0854597	0.451267	0.439935)
+
+These are below the values specified in the Rubric (0.11, 0.11, 0.52, 0.52).
+
+3. Follows the Correct Algorithm:
+
 The code follows the algorithm discussed in the class lessons.
 
-Code Efficiency:
+4. Code Efficiency:
+
 Code has minimal changes and computations necessary to perform the prediction and update using Kalman filter.
 There are no unnecessary computations however code is not optimized for performance either.
 
-Additional information:
+5. Additional information:
+
 I have added the following pre-processor macros to control the code flow.
 
-./src/kalman_filter.cpp:52:#define DISABLE_RADAR 0
+  1. ./src/kalman_filter.cpp:52:#define DISABLE_RADAR 0
+  
 This can be used to disable the accounting of RADAR measurements to see how system performs with LASER data alone.
 
-./src/kalman_filter.cpp:32:#define DISABLE_LASER 0
+  2. ./src/kalman_filter.cpp:32:#define DISABLE_LASER 0
+  
 This can be used to disable the accounting of LASER measurements to see how system performs with RADAR data alone.
 
 
@@ -99,14 +108,29 @@ Here is the table of RMSE values observed with different combinations.
 | RADAR         | 0.230	0.346	0.583	0.804 | 0.274	0.387	0.722	0.926 |
 | LASAR+RADAR   | 0.097	0.085	0.451	0.439 | 0.072	0.096	0.414	0.527 |
 
-./src/tools.h:11:#define VERBOSE_PRINTS 1
+  3. ./src/tools.h:11:#define VERBOSE_PRINTS 1
+  
 This can be used to enable/disable the verbose prints.
+
 Here is a sample output on the console when prints are enabled.
+
+--------
 P = 
+
 0.00706985 0.00226997  0.0184169 0.00695398
+
 0.00226997 0.00511771 0.00826626  0.0114158
- 0.0184169 0.00826626   0.120551  0.0371732
+
+0.0184169 0.00826626   0.120551  0.0371732
+
 0.00695398  0.0114158  0.0371732  0.0888411
+
 Estimation:   -7.23246	10.8959	5.19534	0.0613838	
+
 Ground truth: -7.23983	10.9063	5.19994	0.00179692	
+
 RMSE:         0.0973178	0.0854597	0.451267	0.439935
+
+--------
+
+Thank you for the review.
