@@ -7,6 +7,9 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using namespace std;
 
+// Comment below line to disable detailed logs
+#define VERBOSE_PRINTS 1
+
 class Tools {
 public:
   /**

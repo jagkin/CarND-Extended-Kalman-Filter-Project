@@ -23,6 +23,9 @@ public:
   // measurement covariance matrix
   Eigen::MatrixXd R_;
 
+  // Identity matrix of size x_.size(), x_.size()
+  Eigen::MatrixXd I_;
+
   /**
    * Constructor
    */
